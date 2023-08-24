@@ -55,3 +55,15 @@ header {
   display: flex;
   gap: 60px;
 }
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.items div img {
+  width: 235px;
+  height: 359px;
+  object-fit: cover;
+}

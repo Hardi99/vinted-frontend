@@ -1,41 +1,26 @@
 import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+//Pages
+import Home from './pages/Home'
+import Offer from "./pages/Offer";
+
+// Componentss
 import Header from './components/Header'
-import Main from './components/Main'
-import Items from './components/Items'
-import Item from './components/Item'
-// import du package axios
-import axios from "axios";
-import { useState, useEffect } from "react";
+import Main from './components/Main';
 
 function App() {
-  const [data, setData] = useState();
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("https://lereacteur-vinted-api.herokuapp.com/offers");
-        console.log(response.data);
-        setData(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error.response); // contrairement au error.message d'express
-      }
-    };
-    fetchData();
-  }, []);
-
-  return isLoading ? (
-    <span>En cours de chargement...</span>
-  ) : (
-    <>
+  return (
+    <Router>
       <Header />
       <Main />
-      <Items>
-        <Item data={data}/>
-      </Items>
-    </>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/offers/:id" element={<Offer />} />
+      </Routes>
+    </Router>
   )
 }
 
-export default App
+export default App;
