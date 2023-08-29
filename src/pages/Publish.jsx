@@ -20,6 +20,7 @@ const Publish = ({token}) => {
                 onSubmit={async e => {
                     // Empêche le rafraichissement de page à la soumission du formulaire
                     e.preventDefault();
+                    console.log(token)
 
                     // le formData crée un formulaire
                     const formData = new FormData();
@@ -34,25 +35,26 @@ const Publish = ({token}) => {
                     formData.append('size', size);
 
                     try {
+                        //Changement des arguments du axios.post
                         const response = await axios.post(
                             "https://lereacteur-vinted-api.herokuapp.com/offer/publish",
-                            title,
-                            description,
-                            price,
-                            condition,
-                            city,
-                            brand,
-                            size,
-                            color,
-                            file,
 
                             formData,
                             {
-                                // L'objet headers sert à s'authentifier auprès du serverur à l'aide du Bearer token
-                                headers: {
-                                    Authorization: "Bearer " + token,
-                                    "Content-Type": 'multipart/form-data'
-                                }
+                                title,
+                                description,
+                                price,
+                                condition,
+                                city,
+                                brand,
+                                size,
+                                color,
+                                file,
+                            },
+                            // L'objet headers sert à s'authentifier auprès du serverur à l'aide du Bearer token
+                            headers, {
+                                Authorization: "Bearer " + token,
+                                "Content-Type": 'multipart/form-data'
                             }
                         );
                         //Le stringify convertit le format JSON en string
