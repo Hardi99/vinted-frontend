@@ -1,8 +1,9 @@
+import Cookies from "js-cookie";
 import "../App.css";
-import Cookies from 'js-cookies'
+import axios from "axios";
 
 // J'utilise le destructuring de props pour ne pas répéter props.example
-const Form = ({name, password, email, subscribed, setSubscribed, setName, setEmail, setPassword, register, setRegister}) => {
+const Form = ({name, password, email, newsletter, setNewsletter, setName, setEmail, setPassword, register, setRegister, handleToken}) => {
 
     const handleNameChange = event => {
         const value = event.target.value;
@@ -19,30 +20,51 @@ const Form = ({name, password, email, subscribed, setSubscribed, setName, setEma
         setPassword(value);
     };
 
-    const handleSubscribedChange = event => {
-        const value = event.target.value;
-        setSubscribed(value);
+    const handleNewsletterChange = () => {
+        setNewsletter(!newsletter);
     };
 
-  const handleSubmit = event => {
-     // Pour empêcher le navigateur de changer de page lors de la soumission du formulaire
-    event.preventDefault();
-    // Vérifier que les 2 password sont identiques
-    if (password, name, email) {
-      // J'affiche une alerte et je change la valeur du state de Register
-      alert("Vous avez crée un compte !!!")
-      setRegister(!register);
-      console.log(!register);
-      const token = "fSFBIbI3XtZyF79i";
-      Cookies.set("token", token);
-      console.log(Cookies);
-    } else {
-        alert("Il y a un problème")
-    }
-  };
-
   return (
-      <form onSubmit={handleSubmit} style={register === true ? {display: 'none'} : {display: 'flex'}}>
+    <form
+      onSubmit={async (event) => {
+        event.preventDefault();
+        try {
+          //   Je fais disparaitre le message d'erreur
+          setErrorMessage("");
+          //   Requête axios :
+          // - Premier argument : l'url que j'interroge
+          // - deuxième : le body que j'envoi
+          const response = await axios.post(
+            "https://lereacteur-vinted-api.herokuapp.com/user/signup",
+            {
+              email, // email : email
+              name,
+              password,
+              newsletter: newsletter,
+            }
+          );
+          console.log(response.data);
+          // J'enregistre le token dans mon state et mes cookies
+          handleToken(response.data.token);
+          navigate("/");
+        } catch (error) {
+          // console.log(error.response.data); // Pour voir le message d'erreur transmis par le serveur
+          console.log(error.response); // Pour voir le status de la réponse
+          // Si je reçois le message "This email already has an account"
+          if (
+            error.response.data.message ===
+            "This email already has an account"
+          ) {
+            // Je met à jour mon state errorMessage
+            setErrorMessage(
+              "Ce mail est déjà utilisé, veuillez en choisir un autre :)"
+            );
+          } else if (error.response.data.message === "Missing parameters") {
+            setErrorMessage("Veuillez remplir tous les champs :)");
+          }
+        }
+      }}
+    >
         <p>S'inscrire</p>
         <input
           placeholder="Name"
@@ -73,9 +95,9 @@ const Form = ({name, password, email, subscribed, setSubscribed, setName, setEma
                 <input
                 placeholder="Password"
                 type="checkbox"
-                name="subscribed"
+                checked={newsletter}
                 value="S'inscrire à notre newsletter"
-                onChange={handleSubscribedChange}
+                onChange={handleNewsletterChange}
                 />
                 <p>S'inscrire à notre newsletter</p>
             </div>

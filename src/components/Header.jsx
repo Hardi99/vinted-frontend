@@ -1,18 +1,35 @@
 import '../App.css'
 import logo from '../assets/logo.png'
+import { Link } from "react-router-dom";
 
-function Header() {
+function Header({ token, handleToken, search, setSearch }) {
 
   return (
     <header>
         <div className='container header'>
             <img src={logo} alt="" />
-            <input type="text" placeholder='Recherche des articles' />
-            <nav>
-                <button>S'inscrire</button>
-                <button>Se connecter</button>
-            </nav>
-            <button>Vends tes articles</button>
+            <input
+              type="text"
+              value={search}
+              placeholder="Rechercher des articles"
+              onChange={(event) => {
+                setSearch(event.target.value);
+              }}
+            />
+            {token ? (
+              <button
+                onClick={() => {
+                  handleToken(null);
+                }}
+              >
+                Déconnexion
+              </button>
+            ) : (
+              <>
+                <Link to="/signup">S'inscrire</Link>
+                <Link to="/login">Se connecter</Link>
+              </>
+            )}
         </div>
     </header>
   )

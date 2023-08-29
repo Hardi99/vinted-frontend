@@ -6,7 +6,6 @@ function Main() {
     const bannerStryle = {
         backgroundImage: {imgbanner},
         height: '453px',
-        border: '1px solid orange',
         backgroundSize: 'cover'
     }
 

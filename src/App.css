@@ -28,7 +28,6 @@ button {
 }
 
 .side-text {
-  border: 1px solid purple;
   width: 400px;
   position: absolute;
   top: 150px;
@@ -85,4 +84,32 @@ form input:last-child {
 
 .final-form div input{
   width: auto;
+}
+
+.header-button {
+  border: 1px solid #2cb1ba;
+  border-radius: 5px;
+  font-size: 12px;
+  height: 30px;
+  outline: none;
+  width: 120px;
+  background-color: transparent;
+  color: #2cb1ba;
+  cursor: pointer;
+}
+
+.header-button-reverse, .header-button:hover {
+  border: 1px solid #2cb1ba;
+  border-radius: 5px;
+  font-size: 12px;
+  height: 30px;
+  outline: none;
+  width: 120px;
+  background-color: #2cb1ba;
+  color: #fff;
+  cursor: pointer;
+}
+
+main {
+  background-color: #ebedee;
 }

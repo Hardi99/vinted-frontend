@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
-import Header from "../components/Header";
 import Main from "../components/Main";
 
-const Home = () => {
+const Home = ({ search }) => {
 const [data, setData] = useState({});
 const [isLoading, setIsLoading] = useState(true);
 
@@ -13,7 +11,7 @@ const [isLoading, setIsLoading] = useState(true);
     const fetchData = async () => {
         try {
         const response = await axios.get(
-            "https://lereacteur-vinted-api.herokuapp.com/offers"
+            `https://lereacteur-vinted-api.herokuapp.com/offers?title=${search}`
         );
         // console.log(response.data);
         setData(response.data);
@@ -23,33 +21,36 @@ const [isLoading, setIsLoading] = useState(true);
         }
     };
     fetchData();
-    }, []);
+    }, [search]);
 
   return isLoading ? (
     <p>Loading...</p>
   ) : (
     <div>
-        <Header />
         <Main />
         <div className='container items'>
             {data.offers.map((offer) => {
                 return (
                     <Link key={offer._id} to={`/offers/${offer._id}`}>
-                        <article key={offer._id} style={{border: '1px solid black'}}>
-                            <div>
+                        <article key={offer._id}>
+                            <div className="avatar">
                                 {offer.owner.account.avatar && (
-                                    <img 
-                                    src={offer.owner.account.avatar.secure_url} 
-                                    alt={offer.owner.account.username}
-                                    />
+                                    <>
+                                        <img 
+                                        src={offer.owner.account.avatar.secure_url} 
+                                        alt={offer.owner.account.username}
+                                        />
+                                        <p>{offer.owner.account.username}</p>
+                                    </>
                                 )}
                             </div>
-                            <div>
+                            <div className="offer">
                                 <img
                                 src={offer.product_image.secure_url}
                                 alt={offer.product_name}
                                 />
                             </div>
+                            <p>{offer.product_price} €</p>
                         </article>
                     </Link>
                 )

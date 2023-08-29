@@ -41,12 +41,7 @@ h1 {
   }
 }
 
-header {
-  border: 1px solid blue;
-}
-
 .container {
-  border: 1px solid red;
   width: 1240px;
   margin: auto;
 }
@@ -62,8 +57,42 @@ header {
   gap: 10px;
 }
 
-.items div img {
+.offer img {
   width: 235px;
   height: 359px;
+  object-fit: cover;
+}
+
+.avatar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.avatar img {
+  border-radius: 50%;
+  object-fit: cover;
+  height: 30px;
+  width: auto;
+}
+
+.ticket {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.ticket div {
+  background-color: #fff;
+  padding: 40px;
+}
+
+.ticket p {
+  line-height: 0.5;
+}
+
+.ticket img {
+  width: 448px;
+  height: 598px;
   object-fit: cover;
 }
