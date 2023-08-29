@@ -3,9 +3,9 @@ import Form from "../components/Form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SignUp = () => {
+const SignUp = ({handleToken}) => {
 
-  const [name, setName] = useState("");
+  const [username, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newsletter, setNewsletter] = useState(false);
@@ -15,7 +15,7 @@ const SignUp = () => {
 
   return (
     <div className="contact-form">
-      <Form register={register} setRegister={setRegister} name={name} setName={setName} email={email} setEmail={setEmail} password={password} setPassword={setPassword} newsletter={newsletter} setNewsletter={setNewsletter} />
+      <Form register={register} setRegister={setRegister} username={username} setName={setName} email={email} setEmail={setEmail} password={password} setPassword={setPassword} newsletter={newsletter} setNewsletter={setNewsletter} handleToken={handleToken} />
     </div>
   );
 };

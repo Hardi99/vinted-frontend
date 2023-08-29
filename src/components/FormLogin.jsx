@@ -18,24 +18,6 @@ const FormLogin = ({password, email, setEmail, setPassword, navigate}) => {
         setPassword(value);
     };
 
-  const handleSubmit = async event => {
-     // Pour empêcher le navigateur de recharger la page lors de la soumission du formulaire
-    event.preventDefault();
-
-    // Vérifier que les champs sont remplis
-    if (password,email) {
-        const response = await axios.post(
-          "https://lereacteur-vinted-api.herokuapp.com/user/login"
-        );
-      Cookies.set("userToken", response.data.token);
-      setToken(response.data.token);
-      navigate("/");
-      /* setIsLogin(true) */
-    } else {
-        alert("Il y a un problème")
-    }
-  };
-
   return (
       <form 
         onSubmit={async (event) => {

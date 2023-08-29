@@ -1,9 +1,12 @@
 import Cookies from "js-cookie";
 import "../App.css";
 import axios from "axios";
+import { useState } from "react";
 
 // J'utilise le destructuring de props pour ne pas répéter props.example
-const Form = ({name, password, email, newsletter, setNewsletter, setName, setEmail, setPassword, register, setRegister, handleToken}) => {
+const Form = ({username, password, email, newsletter, setNewsletter, setName, setEmail, setPassword, handleToken}) => {
+
+  const [errorMessage, setErrorMessage] = useState('');
 
     const handleNameChange = event => {
         const value = event.target.value;
@@ -34,11 +37,12 @@ const Form = ({name, password, email, newsletter, setNewsletter, setName, setEma
           //   Requête axios :
           // - Premier argument : l'url que j'interroge
           // - deuxième : le body que j'envoi
+          console.log(username, email, password, newsletter)
           const response = await axios.post(
             "https://lereacteur-vinted-api.herokuapp.com/user/signup",
             {
               email, // email : email
-              name,
+              username,
               password,
               newsletter: newsletter,
             }
@@ -49,7 +53,7 @@ const Form = ({name, password, email, newsletter, setNewsletter, setName, setEma
           navigate("/");
         } catch (error) {
           // console.log(error.response.data); // Pour voir le message d'erreur transmis par le serveur
-          console.log(error.response); // Pour voir le status de la réponse
+          console.log(error); // Pour voir le status de la réponse
           // Si je reçois le message "This email already has an account"
           if (
             error.response.data.message ===
@@ -70,7 +74,7 @@ const Form = ({name, password, email, newsletter, setNewsletter, setName, setEma
           placeholder="Name"
           type="text"
           name="email"
-          value={name}
+          value={username}
           onChange={handleNameChange}
         />
 
