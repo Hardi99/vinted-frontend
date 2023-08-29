@@ -40,26 +40,17 @@ const Publish = ({token}) => {
                             "https://lereacteur-vinted-api.herokuapp.com/offer/publish",
 
                             formData,
-                            {
-                                title,
-                                description,
-                                price,
-                                condition,
-                                city,
-                                brand,
-                                size,
-                                color,
-                                file,
-                            },
+
                             // L'objet headers sert à s'authentifier auprès du serverur à l'aide du Bearer token
-                            headers, {
+                            {headers : {
                                 Authorization: "Bearer " + token,
                                 "Content-Type": 'multipart/form-data'
-                            }
+                            }}
                         );
                         //Le stringify convertit le format JSON en string
                         console.log(JSON.stringify(response.data))
                     } catch (err) {
+                        console.log(err)
                         if (err.response.status === 500) {
                             console.error("An error occured");
                         } else {
