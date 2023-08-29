@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 
 // J'utilise le destructuring de props pour ne pas répéter props.example
-const FormLogin = ({password, email, setEmail, setPassword, navigate}) => {
+const FormLogin = ({password, email, setEmail, setPassword, navigate, handleToken}) => {
 
     const [isLogin, setIsLogin] = useState(false)
 
@@ -34,7 +34,7 @@ const FormLogin = ({password, email, setEmail, setPassword, navigate}) => {
           handleToken(response.data.token);
           navigate("/");
         } catch (error) {
-          // console.log(error.message);
+          console.log(error);
           console.log(error.response.data);
         }
       }}>

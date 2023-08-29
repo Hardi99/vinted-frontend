@@ -110,6 +110,11 @@ form input:last-child {
   cursor: pointer;
 }
 
+.red {
+  background-color: #c2185c;
+  border: 1px solid #c2185c;
+}
+
 main {
   background-color: #ebedee;
 }

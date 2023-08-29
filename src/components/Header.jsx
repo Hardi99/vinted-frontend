@@ -17,17 +17,20 @@ function Header({ token, handleToken, search, setSearch }) {
               }}
             />
             {token ? (
-              <button
-                onClick={() => {
-                  handleToken(null);
-                }}
-              >
-                Déconnexion
-              </button>
+              <div>
+                <button className='header-button-reverse red'
+                  onClick={() => {
+                    handleToken(null);
+                  }}
+                >
+                  Déconnexion
+                </button>
+                <button className='header-button-reverse'><Link to="/publish" >Vends tes articles</Link></button>
+              </div>
             ) : (
               <>
-                <Link to="/signup">S'inscrire</Link>
-                <Link to="/login">Se connecter</Link>
+                <button className='header-button'><Link to="/signup" >S'inscrire</Link></button>
+                <button className='header-button'><Link to="/login" >Se connecter</Link></button>
               </>
             )}
         </div>

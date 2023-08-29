@@ -9,6 +9,7 @@ import Offer from "./pages/Offer";
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import Header from './components/Header';
+import Publish from './pages/Publish';
 
 function App() {
   // State dans lequel je stocke le token. Sa valeur de base sera :
@@ -43,6 +44,7 @@ function App() {
         <Route path="/offers/:id" element={<Offer />} />
         <Route path="/signup" element={<SignUp handleToken={handleToken} />} />
         <Route path="/login" element={<Login handleToken={handleToken} />} />
+        <Route path="/publish" element={<Publish token={token} />} />
       </Routes>
     </Router>
   )
